@@ -11,6 +11,8 @@ clientPollingInterval: 3000
 # Mode must be either production|konvoy
 mode: production
 
+displayName: Konvoy Cluster
+
 # Konvoy ui should NOT create the CRD if Kommander already did it
 createObservableClusterCRD: true
 
@@ -19,7 +21,7 @@ extraInitContainers:
 resources:
   requests:
     memory: "128Mi"
-    cpu: "1000m"
+    cpu: "100m"
   limits:
     memory: "512Mi"
     cpu: "2000m"
