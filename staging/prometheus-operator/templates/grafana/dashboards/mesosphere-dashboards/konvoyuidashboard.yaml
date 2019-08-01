@@ -1,8 +1,8 @@
-{{- if and .Values.mesosphereResources.create .Values.mesosphereResources.dashboards.konvoyui }}
+{{- if and .Values.mesosphereResources.create .Values.mesosphereResources.dashboards.opsportal }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ printf "%s-%s" (include "prometheus-operator.fullname" $) "konvoyui-dashboard" | trunc 63 | trimSuffix "-" }}
+  name: {{ printf "%s-%s" (include "prometheus-operator.fullname" $) "opsportal-dashboard" | trunc 63 | trimSuffix "-" }}
   labels:
     {{- if $.Values.grafana.sidecar.dashboards.label }}
     {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
@@ -10,7 +10,7 @@ metadata:
     app: {{ template "prometheus-operator.name" $ }}-grafana
 {{ include "prometheus-operator.labels" $ | indent 4 }}
 data:
-  konvoyuidashboard.json: |-
+  opsportaldashboard.json: |-
     {
       "__inputs": [],
       "__requires": [
