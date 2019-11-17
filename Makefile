@@ -5,7 +5,7 @@ STABLE_TARGETS = $(shell hack/chart_destination.sh $(STABLE_CHARTS))
 STAGING_CHARTS = $(wildcard staging/*/Chart.yaml)
 STAGING_TARGETS = $(shell hack/chart_destination.sh $(STAGING_CHARTS))
 
-GIT_REMOTE_URL ?= https://mesosphere:$(GITHUB_USER_TOKEN)@github.com/mesosphere/charts.git
+GIT_REMOTE_URL ?= https://hectorj2f:$(GITHUB_USER_TOKEN)@github.com/hectorj2f/charts-1.git
 
 # Extract the github user from the origin remote url.
 # This let's the 'publish' task work with forks.
@@ -14,7 +14,7 @@ GIT_REMOTE_URL ?= https://mesosphere:$(GITHUB_USER_TOKEN)@github.com/mesosphere/
 # - git@github.com:mesosphere/charts.git
 GITHUB_USER := $(shell git remote get-url origin | sed -E 's|.*github.com[/:]([^/]+)/charts.*|\1|')
 
-GIT_REF = $(shell git show-ref -s HEAD)	
+GIT_REF = $(shell git show-ref -s HEAD)
 LAST_COMMIT_MESSAGE := $(shell git reflog -1 | sed 's/^.*: //')
 
 TMPDIR := $(shell mktemp -d)
@@ -54,7 +54,7 @@ publish:
 	-git remote add publish $(GIT_REMOTE_URL) >/dev/null 2>&1
 	-@git branch -D master
 	@git checkout -b master
-	@curl -Ls https://github.com/mesosphere/charts/archive/master.tar.gz | tar -xz --strip-components=1 charts-master/docs
+	@curl -Ls https://github.com/hectorj2f/charts-1/archive/master.tar.gz | tar -xz --strip-components=1 charts-master/docs
 	@make all
 	@git add .
 	@git commit -m "$(LAST_COMMIT_MESSAGE)"
@@ -83,5 +83,5 @@ $(TMPDIR)/.helm/repository/local/index.yaml: $(HELM)
 ct.lint:
 ifneq (,$(wildcard /teamcity/system/git))
 	$(DRUN) git fetch origin dev
-endif	
+endif
 	$(DRUN) ct lint
